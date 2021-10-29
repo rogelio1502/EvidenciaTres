@@ -19,10 +19,18 @@ namespace EvidenciaTres
 
         private void menuClosed(object sender, FormClosedEventArgs e)
         {
-            Form1 login = new Form1();
+            
             this.Dispose();
-            login.Show();
-            Environment.Exit(0);
+            
+            try
+            {
+                Environment.Exit(0);
+
+            }
+            catch (Exception)
+            {
+                Environment.Exit(0);
+            }
 
         }
 
@@ -44,6 +52,13 @@ namespace EvidenciaTres
         {
             RegistrarVenta rv = new RegistrarVenta();
             rv.Show();
+            this.Dispose();
+        }
+
+        private void btnlogout_Click(object sender, EventArgs e)
+        {
+            Form1 login = new Form1();
+            login.Show();
             this.Dispose();
         }
     }

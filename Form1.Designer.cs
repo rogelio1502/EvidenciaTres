@@ -39,11 +39,14 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.btn_entrar);
             this.panel1.Controls.Add(this.tbpassword);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.tbusername);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(326, 360);
@@ -51,49 +54,51 @@
             // 
             // btn_entrar
             // 
-            this.btn_entrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_entrar.BackColor = System.Drawing.Color.Blue;
+            this.btn_entrar.Font = new System.Drawing.Font("Cascadia Mono", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_entrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_entrar.Location = new System.Drawing.Point(90, 280);
             this.btn_entrar.Name = "btn_entrar";
             this.btn_entrar.Size = new System.Drawing.Size(142, 55);
             this.btn_entrar.TabIndex = 4;
             this.btn_entrar.Text = "ENTRAR";
-            this.btn_entrar.UseVisualStyleBackColor = true;
+            this.btn_entrar.UseVisualStyleBackColor = false;
             this.btn_entrar.Click += new System.EventHandler(this.btn_entrar_Click);
             // 
             // tbpassword
             // 
-            this.tbpassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbpassword.Font = new System.Drawing.Font("Cascadia Mono", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbpassword.Location = new System.Drawing.Point(54, 202);
             this.tbpassword.Name = "tbpassword";
             this.tbpassword.PasswordChar = '*';
-            this.tbpassword.Size = new System.Drawing.Size(219, 38);
+            this.tbpassword.Size = new System.Drawing.Size(219, 39);
             this.tbpassword.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(60, 144);
+            this.label2.Font = new System.Drawing.Font("Cascadia Mono", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(72, 145);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(204, 31);
+            this.label2.Size = new System.Drawing.Size(175, 35);
             this.label2.TabIndex = 2;
             this.label2.Text = "CONTRASEÑA";
             // 
             // tbusername
             // 
-            this.tbusername.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbusername.Font = new System.Drawing.Font("Cascadia Mono", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbusername.Location = new System.Drawing.Point(54, 73);
             this.tbusername.Name = "tbusername";
-            this.tbusername.Size = new System.Drawing.Size(219, 38);
+            this.tbusername.Size = new System.Drawing.Size(219, 39);
             this.tbusername.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Cascadia Mono", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(93, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 31);
+            this.label1.Size = new System.Drawing.Size(127, 35);
             this.label1.TabIndex = 0;
             this.label1.Text = "USUARIO";
             // 
@@ -101,6 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(350, 389);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";

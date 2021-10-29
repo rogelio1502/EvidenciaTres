@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace EvidenciaTres
 {
@@ -57,8 +59,9 @@ namespace EvidenciaTres
 
             int cantidad = getQuantity(nup);
             int precio = getPrice(p);
+            int subtotal = cantidad * precio;
             string nombre = name.Text;
-            Item item = new Item() { Name = nombre, Precio = precio, Q = cantidad };
+            Item item = new Item() { Name = nombre, Precio = precio, Q = cantidad, SubTotal= subtotal };
             items.Add(item);
         }
 
@@ -81,6 +84,10 @@ namespace EvidenciaTres
 
             lbltotaltotal.Text = Convert.ToString(totalVenta);
 
+        }
+        private int getTotal()
+        {
+            return toInt(lbltotaltotal.Text);
         }
 
         private void changeSubTotal(Label subtotal, Label precio, NumericUpDown nup)
@@ -168,10 +175,18 @@ namespace EvidenciaTres
                 }
                 if (everything_correct)
                 {
-                    MessageBox.Show("Compra realizada con exito");
-                    Menu menu = new Menu();
-                    menu.Show();
-                    this.Dispose();
+                    Venta venta = new Venta { Items = items,Total = getTotal() };
+                    bool done = venta.registrarVenta();
+                    if (done)
+                    {
+                        MessageBox.Show("Compra realizada con exito");
+
+                        Menu menu = new Menu();
+                        menu.Show();
+                        this.Dispose();
+                    }
+                    
+                    
                 }
 
             }
@@ -212,24 +227,113 @@ namespace EvidenciaTres
 
         }
     }
-    struct Item {
-        private string name;
-        public string Name { 
-            get => name; 
-            set => name = value; 
+    class Item {
+        
+        public string Name {
+            get; 
+            set; 
         }
 
-        private int q;
+        
         public int Q { 
-            get => q; 
-            set => q = value; 
+            get; 
+            set; 
         }
-
-        private int precio;
 
         public int Precio { 
-            get => precio; 
-            set => precio = value; 
+            get; 
+            set; 
+        }
+
+        public int SubTotal
+        {
+            get;
+            set;
         }
     }
+    class Venta
+    {
+        public List<Item> Items { get; set; }
+
+        public List<Item> Ventas = new List<Item>();
+
+        public int Total { get; set; }
+        
+        public bool registrarVenta()
+        {
+            try
+            {
+                using (StreamReader r = new StreamReader(@"C:\FilesC#\transacciones.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
+                    if(items != null)
+                    {
+                        foreach (Item item in items)
+                        {
+                            Ventas.Add(item);
+                        }
+                    }
+                    
+                }
+            }
+            catch (System.IO.FileNotFoundException )
+            {
+                
+                //toleramos el error
+            }
+
+            try
+            {
+                foreach (Item item in Items)
+                {
+                    Ventas.Add(item);
+                }
+                string json_data = JsonConvert.SerializeObject(Ventas);
+                File.WriteAllText(@"C:\FilesC#\transacciones.json", json_data);
+                
+            }
+            catch (Exception e)
+            {
+
+                MessageBox.Show(e.Message);
+                return false;
+
+            }
+            finally
+            {
+                generarTicket();
+            }
+            return true;
+        }
+        public void generarTicket()
+        {
+            string fecha_actual = DateTime.Now.ToString("dd-MM-yyyy");
+            string hora_actual = DateTime.Now.ToString("hh:mm:ss tt");
+
+            string ticketTexto = String.Format("Compra Realizada el {0} a las {1}",
+                DateTime.Now.ToString("dd-MM-yyyy"), 
+                DateTime.Now.ToString("hh:mm:ss tt"));
+            ticketTexto += "\n";
+            ticketTexto += "Producto\t\tPrecio\tCantidad\tSubtotal";
+             
+            foreach (Item item in Items)
+            {
+                String itemTexto;
+                ticketTexto += "\n";
+                itemTexto = String.Format("{0}\t\t{1}\t{2}\t\t{3}", item.Name, item.Precio, item.Q, item.SubTotal);
+                ticketTexto += itemTexto;
+                
+            }
+            ticketTexto += String.Format("\n\t\t\t\t\tTotal = {0}",Total);
+            string hora_path = hora_actual.Replace(" ", "-");
+            hora_path = hora_path.Replace(":", "-");
+            string path = String.Format(@"C:\FilesC#\ticketVenta{0}{1}.txt",fecha_actual,hora_path);
+            File.WriteAllText(path,ticketTexto);
+            MessageBox.Show(String.Format("Ticket Generado con éxito.\nSe ha guardado en\n{0}", path));
+        }
+
+    }
+    
+
 }
